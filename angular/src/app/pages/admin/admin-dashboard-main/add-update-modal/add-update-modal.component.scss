@@ -1,0 +1,21 @@
+.add-button {
+  background-color: #e03e2d;
+  border-radius: 5px;
+  width: 100px;
+  height: 40px;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+  color: white;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+  border: 1px solid #d5331e;
+  margin: 10px;
+}
+
+.add-button:hover {
+  background-color: #d5331e;
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}

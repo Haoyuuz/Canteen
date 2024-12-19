@@ -1,0 +1,38 @@
+.search-cons {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  text-align: center;
+  align-items: center;
+}
+.search-input {
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  flex: 1;
+}
+.search-mcons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+@media (max-width: 768px) {
+  .search-cons {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  .search-cons .search-button {
+    align-self: end;
+  }
+  .search-mcons {
+    display: block;
+    text-align: left;
+  }
+  .search-input {
+    width: 100%;
+  }
+}

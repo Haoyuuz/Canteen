@@ -1,0 +1,143 @@
+<p-dialog
+  header="Product Details"
+  [(visible)]="visible"
+  [modal]="true"
+  [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
+  [style]="{ width: '50vw' }"
+  [draggable]="false"
+  [resizable]="false"
+  [appendTo]="'body'"
+  (onHide)="onHideDialog()"
+>
+  <form ngNativeValidate (ngSubmit)="onCreateUpdate()">
+    <div class="p-fluid grid">
+      <div class="col-12">
+        <div class="card">
+          <div class="p-fluid grid formgrid">
+            <div class="field col-12 md:col-4">
+              <!-- Hidden ProductId -->
+              <input
+                id="id"
+                type="text"
+                pInputText
+                class="p-inputtext p-component"
+                name="id"
+                [(ngModel)]="data.id"
+                disabled
+                hidden
+              />
+              <label for="productName">Product Name</label>
+              <input
+                id="productName"
+                type="text"
+                pInputText
+                class="p-inputtext p-component"
+                name="productName"
+                [(ngModel)]="data.itemName"
+                required
+              />
+            </div>
+            <div class="field col-12 md:col-4">
+              <label for="category">Category</label>
+              <select
+                id="category"
+                class="custom-select"
+                style="
+                  width: 100%;
+                  height: 2.5rem;
+                  border-radius: 6px;
+                  color: black;
+                "
+                [(ngModel)]="data.categoryId"
+                name="categoryId"
+                required
+              >
+                <option value="" disabled selected>Select</option>
+                <option
+                  *ngFor="let category of categoryData"
+                  [value]="category.id"
+                >
+                  {{ category.categoryName }}
+                </option>
+              </select>
+            </div>
+            <div class="field col-12 md:col-4">
+              <label for="description">Description</label>
+              <textarea
+                id="itemDesc"
+                class="p-inputtextarea p-component"
+                rows="3"
+                style="width: 100%"
+                name="itemDesc"
+                [(ngModel)]="data.itemDesc"
+                required
+              ></textarea>
+            </div>
+            <div class="field col-12 md:col-4">
+              <label for="price">Price</label>
+              <input
+                id="price"
+                type="number"
+                pInputText
+                class="p-inputtext p-component"
+                name="price"
+                [(ngModel)]="data.price"
+                required
+              />
+            </div>
+            <div class="field col-12 md:col-4">
+              <label for="quantity">Quantity</label>
+              <input
+                id="stockQuantity"
+                type="number"
+                pInputText
+                class="p-inputtext p-component"
+                name="stockQuantity"
+                [(ngModel)]="data.stockQuantity"
+                required
+              />
+            </div>
+            <div class="field col-12 md:col-4" style="margin-top: 1rem">
+              <label for="validId" class="form-label"
+                >Upload Product Image
+              </label>
+              <input
+                type="file"
+                class="form-control"
+                id="productimg"
+                name="productimg"
+                (change)="onFileChange($event)"
+                [attr.required]="isRequired ? true : null"
+                #fileInput
+              />
+              <img
+                [src]="data.imgUrl"
+                name="imgUrl"
+                alt="Product Image"
+                style="
+                  width: 100%;
+                  object-fit: cover;
+                  border-radius: 8px;
+                  margin-top: 10px;
+                "
+              />
+            </div>
+          </div>
+          <div style="display: flex; justify-content: flex-end">
+            <button
+              type="submit"
+              name="submit"
+              id="submit"
+              label="Add"
+              class="add-button"
+            >
+              Save
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</p-dialog>
+
+<app-toastr-serv></app-toastr-serv>

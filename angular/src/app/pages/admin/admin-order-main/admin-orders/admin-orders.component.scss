@@ -1,0 +1,160 @@
+.card-parent {
+  display: flex;
+  flex-wrap: wrap;
+}
+.queue-card {
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  padding: 24px;
+  justify-content: center;
+  margin-right: 12px;
+
+  width: 350px;
+  margin-bottom: 12px;
+}
+.card-body {
+}
+.card-header {
+}
+
+.card-content {
+  min-height: 240px;
+  margin-top: 8px;
+}
+
+.card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+  margin-top: 12px;
+}
+
+.status-container {
+  align-items: center;
+}
+.card-footer p {
+  font-size: small;
+}
+
+// VIEW BASKET CSS
+.item-name {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.item-price {
+  font-size: 14px;
+  color: #808080;
+  margin: 0 8px;
+}
+
+.item-quantity {
+  font-size: 14px;
+  margin-top: 8px;
+}
+
+.total-price {
+  font-size: 16px;
+  font-weight: 600;
+  text-align: right;
+}
+
+.order-detail {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.order-detail li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.order-detail li:last-child {
+  margin-bottom: 0;
+}
+
+.order-detail li strong {
+  font-weight: 500;
+}
+
+.header-status {
+  display: flex;
+  flex-direction: row-reverse;
+  gap: 10px;
+}
+.header-status p {
+  border-radius: 36px;
+  padding: 3px 12px;
+  font-size: x-small;
+  background-color: #616cff;
+  color: white;
+  margin: 0px !important;
+}
+@media screen and (max-width: 768px) {
+  .header-status {
+    margin-bottom: 10px;
+  }
+
+  .queue-card {
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    padding: 24px;
+    justify-content: center;
+    margin-right: 12px;
+    width: 310px;
+    margin-bottom: 12px;
+  }
+}
+@media screen and (max-width: 1024px) {
+  .header-status {
+    margin-bottom: 10px;
+  }
+
+  .queue-card {
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    padding: 24px;
+    justify-content: center;
+    margin-right: 12px;
+    width: 300px;
+    margin-bottom: 12px;
+  }
+}
+@media screen and (max-width: 320px) {
+  .header-status {
+    margin-bottom: 10px;
+  }
+
+  .card-parent {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+  }
+
+  .queue-card {
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    padding: 24px;
+    justify-content: center;
+    margin-right: 12px;
+    width: 100%;
+    margin-bottom: 12px;
+  }
+
+  .matcardcons {
+    width: 100%;
+    padding: 0 !important;
+  }
+}

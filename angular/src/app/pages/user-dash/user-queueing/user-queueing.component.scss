@@ -1,0 +1,185 @@
+.card-parent {
+  display: flex;
+  flex-wrap: wrap;
+}
+.queue-card {
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  padding: 24px;
+  justify-content: center;
+  margin-right: 12px;
+  width: 350px;
+  margin-bottom: 12px;
+}
+.queue-card:not(:last-child) {
+}
+.card-body {
+}
+.card-header {
+}
+
+.card-content {
+  min-height: 240px;
+  margin-top: 8px;
+}
+.tlcons {
+}
+
+.card-footer {
+  margin-top: 12px;
+}
+
+.item-container {
+  display: flex;
+  align-items: flex-start;
+  padding: 16px;
+  justify-content: space-between;
+}
+
+.item-info {
+  flex: 1;
+}
+
+.item-name {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.item-price {
+  font-size: 14px;
+  color: #808080;
+  margin: 0 8px;
+}
+
+.item-quantity {
+  font-size: 14px;
+  margin-top: 8px;
+}
+
+.total-price {
+  font-size: 16px;
+  font-weight: 600;
+  text-align: right;
+}
+
+.order-detail {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.order-detail li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.order-detail li:last-child {
+  margin-bottom: 0;
+}
+
+.order-detail li strong {
+  font-weight: 500;
+}
+
+// STATUS CONTAINER COLORS STYLE
+
+.status-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  align-self: end;
+}
+
+.status-bod {
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  border-radius: 12px;
+  color: white;
+  margin: 10px;
+}
+
+.matbut {
+}
+
+.bg-green {
+  background-color: rgb(67, 177, 67);
+}
+.bg-gray {
+  background-color: rgb(97, 97, 97);
+}
+.bg-orange {
+  background-color: rgb(255, 153, 70);
+}
+
+.bod3 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.bod3 p {
+  margin: 0px !important;
+  /* border: #ee0404 1px solid; */
+  border-radius: 36px;
+  background-color: #616cff;
+  color: white;
+  padding: 0px 12px;
+  font-size: x-small;
+}
+
+.desc {
+  font-size: small !important;
+  text-align: left !important;
+  justify-content: center;
+  padding: 0px !important;
+  line-height: 13px;
+  margin-left: 12px !important;
+  display: block !important;
+
+  margin-top: 10px;
+}
+@media screen and (max-width: 768px) {
+  .bod3 {
+    font-size: small;
+    flex-direction: column-reverse;
+    align-items: start;
+  }
+  .bod3 p {
+    border-radius: 8px;
+    padding: 0px 12px;
+    margin-bottom: 12px !important;
+  }
+  .desc {
+    font-size: small !important;
+    text-align: left !important;
+    justify-content: center;
+    padding: 0px !important;
+    line-height: 13px;
+    margin-left: 12px !important;
+    display: block !important;
+
+    margin-top: 10px;
+  }
+
+  .status-bod {
+    width: 100%;
+    text-align: left !important;
+    border-radius: 12px;
+    color: white;
+  }
+  .txt-stat {
+    font-size: small !important;
+    padding: 0px !important;
+    text-align: left !important;
+  }
+  .search-button1 {
+    margin-top: 10px !important;
+    border: #ff0000 1px solid !important;
+    float: right !important;
+  }
+}

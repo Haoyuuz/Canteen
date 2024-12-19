@@ -1,0 +1,230 @@
+<mat-card class="cardWithShadow m-t-24">
+  <mat-card-content>
+    <style>
+      #dateFrom,
+      #dateTo {
+        margin-left: 20px;
+        margin-right: 10px;
+      }
+      .search-container {
+        display: flex;
+        flex-direction: row-reverse;
+      }
+    </style>
+    <div class="search-container">
+      <div class="search-item">
+        <label for="dateFrom">From:</label>
+        <p-calendar id="dateFrom" [(ngModel)]="dateFrom"></p-calendar>
+        <label for="dateTo">To:</label>
+        <p-calendar id="dateTo" [(ngModel)]="dateTo"></p-calendar>
+
+        <button
+          mat-raised-button
+          class="search-button1"
+          color="primary"
+          (click)="onGetUserOrder()"
+        >
+          Search
+        </button>
+      </div>
+    </div>
+    <br />
+    <ng-container *ngIf="data.length > 0; else noData">
+      <div class="card-parent">
+        <div *ngFor="let item of data; let i = index">
+          <ng-container
+            *ngIf="
+              i >= (currentPage - 1) * itemsPerPage &&
+              i < currentPage * itemsPerPage
+            "
+          >
+            <div class="queue-card">
+              <div class="card-body">
+                <div class="card-header">
+                  <mat-card-title class="bod3">
+                    Order {{ i + 1 }}
+                    <p>{{ item.paymentMethod }}</p>
+                  </mat-card-title>
+
+                  <mat-card-subtitle class="mat-body-3">
+                    {{ item.orderNum }}
+                  </mat-card-subtitle>
+
+                  <mat-card-subtitle class="mat-body-2">
+                    Your orders will be processed in this order
+                    <br /><small>Order Date: {{ item.orderDate }}</small>
+                  </mat-card-subtitle>
+                </div>
+
+                <div class="card-content">
+                  <div *ngFor="let itemlog of item.userLogs">
+                    <div class="timeline m-t-24 tlcons">
+                      <div class="timeline-item d-flex">
+                        <div class="time text-right mat-subtitle-1 f-s-14">
+                          {{ itemlog.creationTime }}
+                        </div>
+                        <div class="point d-flex align-items-center">
+                          <span
+                            class="timeline-badge m-y-8"
+                            [ngClass]="getBadgeClass(itemlog.status ?? 0)"
+                          ></span>
+
+                          <span class="timline-border d-block"></span>
+                        </div>
+                        <div class="desc1">
+                          <span class="mat-subtitle-1 f-s-14 desc">{{
+                            itemlog.logsDescription
+                          }}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="card-footer">
+                <div class="status-container">
+                  <div
+                    [ngClass]="{
+                      'status-container': true,
+                      'bg-success': item.status === 1,
+                      'bg-error': item.status === 2,
+                      'bg-warning': item.status === 0
+                    }"
+                    class="status-bod"
+                  >
+                    <span class="f-s-14 txt-stat">
+                      Status: {{ statusString(item.status ?? 0) }}
+                    </span>
+                  </div>
+                  <button mat-icon-button (click)="viewOrderDetails(item)">
+                    <mat-icon>visibility</mat-icon>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+      <div class="pagination-controls d-flex justify-content-center m-t-24">
+        <button
+          mat-button
+          (click)="changePage(currentPage - 1)"
+          [disabled]="currentPage === 1"
+        >
+          Previous
+        </button>
+
+        <span class="m-x-12"
+          >Page {{ currentPage }} of {{ totalMenuPages }}</span
+        >
+
+        <button
+          mat-button
+          (click)="changePage(currentPage + 1)"
+          [disabled]="currentPage === totalMenuPages"
+        >
+          Next
+        </button>
+      </div>
+    </ng-container>
+  </mat-card-content>
+</mat-card>
+
+<ng-template #noData>
+  <style>
+    .no-data-card {
+      min-height: 350px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-image: linear-gradient(to bottom, #ffffff, #f5f5f5);
+      border-radius: 10px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    }
+
+    .no-data-card .container {
+      max-width: 600px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .no-data-card .no-order-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .no-data-card .no-order-container img {
+      width: 150px;
+      height: 150px;
+      margin-bottom: 20px;
+    }
+
+    .no-data-card .no-order-container h3 {
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+
+    .no-data-card .no-order-container p {
+      font-size: 16px;
+      margin-bottom: 20px;
+    }
+
+    .no-data-card .no-order-container button {
+      background-color: #635bff;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .no-data-card .no-order-container button:hover {
+      background-color: #4c43ff;
+    }
+  </style>
+  <div class="no-data-card">
+    <div class="container">
+      <div class="no-order-container">
+        <img
+          src="..\assets\images\nodataImg\undraw_no_data_qbuo.svg"
+          alt="No Data Image"
+        />
+        <h3>Ready to Dive into Deliciousness?</h3>
+        <p>
+          You haven't placed an order today. Hit the "User Dashboard" button to
+          embark on your culinary journey.
+        </p>
+        <button routerLink="/user/userdashboard">Menu Dashboard</button>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<p-dialog
+  header="Order Basket"
+  [(visible)]="visible"
+  [modal]="true"
+  [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
+  [style]="{ width: '25vw' }"
+  [draggable]="false"
+  [resizable]="false"
+  [appendTo]="'body'"
+>
+  <h4>Items</h4>
+  <div *ngIf="selectedOrder" class="order-detail">
+    <ul>
+      <li *ngFor="let orderItem of selectedOrder.items">
+        <strong>{{ orderItem.itemName }}</strong>
+        <span>₱ {{ orderItem.price }} x {{ orderItem.quantity }}</span>
+      </li>
+    </ul>
+    <div class="d-flex justify-content-end">
+      <span class="total-price"
+        >Total Price: ₱{{ selectedOrder.totalAmount }}
+      </span>
+    </div>
+  </div>
+</p-dialog>

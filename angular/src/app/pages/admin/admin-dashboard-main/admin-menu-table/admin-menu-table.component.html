@@ -1,0 +1,90 @@
+<p-table
+  #dt1
+  dataKey="id"
+  [value]="data"
+  [paginator]="true"
+  [rows]="10"
+  [tableStyle]="{ 'min-width': '50rem' }"
+  [rowsPerPageOptions]="[5, 10, 20]"
+  [globalFilterFields]="['itemName', 'categoryName']"
+>
+  <ng-template pTemplate="caption">
+    <div style="display: flex; justify-content: flex-end">
+      <!-- <button style="width: 120px" class="add-button">Add Product</button> -->
+      <button mat-menu-item style="width: 120px" (click)="onAddUpdate('')">
+        <mat-icon>add</mat-icon>
+        <span>Add</span>
+      </button>
+    </div>
+    <input
+      pInputText
+      type="text"
+      (input)="dt1.filterGlobal($any($event.target).value, 'contains')"
+      placeholder="Search keyword"
+      style="
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+      "
+    />
+  </ng-template>
+
+  <ng-template pTemplate="header">
+    <tr>
+      <!-- <th>Id</th> -->
+      <th></th>
+      <th>Product Name</th>
+      <th>Category</th>
+      <th>Description</th>
+      <th>Price</th>
+      <th>Quantity</th>
+      <th>Action</th>
+    </tr>
+  </ng-template>
+
+  <ng-template pTemplate="body" let-product>
+    <tr>
+      <!-- <td>
+      {{ item.id }}
+    </td> -->
+      <td style="width: 100px">
+        <img
+          src="{{ product.imgUrl }}"
+          class="img-fluid"
+          style="
+            height: auto;
+            width: 100%;
+            object-fit: cover;
+            border-radius: 8px;
+          "
+        />
+      </td>
+      <td>{{ product.itemName }}</td>
+      <td>{{ product.categoryName }}</td>
+      <td class="wb">{{ product.itemDesc }}</td>
+      <td>{{ product.price }}</td>
+      <td>{{ product.stockQuantity }}</td>
+      <td>
+        <mat-icon
+          style="cursor: pointer"
+          matTooltip="Edit"
+          (click)="onAddUpdate(product.id)"
+        >
+          edit
+        </mat-icon>
+
+        <mat-icon
+          style="cursor: pointer"
+          matTooltip="Delete"
+          (click)="onDeleteProduct()"
+          >delete</mat-icon
+        >
+      </td>
+    </tr>
+  </ng-template>
+</p-table>
+
+<app-add-update-modal></app-add-update-modal>
+<app-toastr-serv></app-toastr-serv>

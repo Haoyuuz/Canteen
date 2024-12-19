@@ -1,0 +1,194 @@
+<mat-card class="cardWithShadow">
+  <mat-card-content>
+    <mat-card-title>Manage User</mat-card-title>
+
+    <div class="search-cons">
+      <input
+        type="text"
+        class="search-input"
+        [(ngModel)]="searchstring"
+        placeholder="Search"
+      />
+      <button
+        mat-raised-button
+        color="primary"
+        class="search-button"
+        (click)="onSearchString()"
+      >
+        Search
+      </button>
+    </div>
+
+    <div class="table-responsive">
+      <table mat-table [dataSource]="dataSource" class="w-100">
+        <!-- Position Column -->
+        <ng-container matColumnDef="name">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            class="f-w-400 mat-subtitle-1 f-s-14"
+          >
+            First Name
+          </th>
+          <td mat-cell *matCellDef="let element" class="mat-body-1">
+            <div class="d-flex align-items-center">
+              <!-- <img
+                [src]="element.imagePath"
+                alt="users"
+                width="60"
+                class="rounded"
+              /> -->
+              <div class="m-l-16">
+                <span class="f-w-600 f-s-14">
+                  {{ element.lastName }}, {{ element.firstName }}
+                </span>
+              </div>
+            </div>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="email">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            class="f-w-400 mat-subtitle-1 f-s-14"
+          >
+            Email
+          </th>
+          <td mat-cell *matCellDef="let element" class="mat-body-1">
+            <div class="d-flex align-items-center">
+              <div class="m-l-16">
+                <span class="f-w-600 f-s-14">
+                  {{ element.email }}
+                </span>
+              </div>
+            </div>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="phonenumber">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            class="f-w-400 mat-subtitle-1 f-s-14"
+          >
+            Phone Number
+          </th>
+          <td mat-cell *matCellDef="let element" class="mat-body-1">
+            <div class="d-flex align-items-center">
+              <div class="m-l-16">
+                <span class="f-w-600 f-s-14">
+                  {{ element.phoneNumber }}
+                </span>
+              </div>
+            </div>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="gender">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            class="f-w-400 mat-subtitle-1 f-s-14"
+          >
+            Gender
+          </th>
+          <td mat-cell *matCellDef="let element" class="mat-body-1">
+            <div class="d-flex align-items-center">
+              <div class="m-l-16">
+                <span class="f-w-600 f-s-14">
+                  {{ element.gender ?? "-" }}
+                </span>
+              </div>
+            </div>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="roles">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            class="f-w-400 mat-subtitle-1 f-s-14"
+          >
+            Roles
+          </th>
+          <td mat-cell *matCellDef="let element" class="mat-body-1">
+            <div class="d-flex align-items-center">
+              <div class="m-l-16">
+                <span class="f-w-600 f-s-14">
+                  {{ element.roles }}
+                </span>
+              </div>
+            </div>
+          </td>
+        </ng-container>
+        <!-- 
+        <ng-container matColumnDef="email">
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              class="f-w-600 mat-subtitle-1 f-s-14 p-l-0"
+            >
+              Product
+            </th>
+            <td mat-cell *matCellDef="let element" class="p-l-0">
+              <div class="d-flex align-items-center">
+                <div class="m-l-16">
+                  <h6 class="mat-subtitle-1 f-s-14 f-w-600">
+                    {{ element.phoneNumber }}
+                  </h6>
+                </div>
+              </div>
+            </td>
+          </ng-container> -->
+
+        <!-- Symbol Column -->
+        <ng-container matColumnDef="actions">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            class="f-w-400 mat-subtitle-1 f-s-14"
+          >
+            Action
+          </th>
+          <td mat-cell *matCellDef="let element" class="mat-body-1">
+            <button
+              mat-icon-button
+              [matMenuTriggerFor]="menu"
+              aria-label="Example icon-button with a menu"
+            >
+              <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item (click)="onAddRole(element)">
+                <mat-icon>add</mat-icon>
+                <span>Roles</span>
+              </button>
+              <button mat-menu-item>
+                <mat-icon>edit</mat-icon>
+                <span>Edit</span>
+              </button>
+              <!-- <button mat-menu-item>
+                <mat-icon>delete</mat-icon>
+                <span>Deactivate</span>
+              </button> -->
+            </mat-menu>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns1"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns1"></tr>
+      </table>
+
+      <mat-paginator
+        [length]="totalRecords"
+        [pageSize]="pageSize"
+        [pageSizeOptions]="[5, 10, 25, 50]"
+        (page)="onPageChange($event)"
+      >
+      </mat-paginator>
+    </div>
+  </mat-card-content>
+</mat-card>
+
+<app-addupdate-role-modal></app-addupdate-role-modal>

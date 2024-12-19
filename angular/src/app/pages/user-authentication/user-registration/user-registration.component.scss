@@ -1,0 +1,18 @@
+.imgc {
+  width: 300px;
+}
+.chck {
+  //   border: 1px solid red;
+  margin-top: 24px;
+  width: 80%;
+  place-self: center;
+}
+
+@media only screen and (max-width: 768px) {
+  .imgc {
+    width: 150px;
+  }
+  .chck {
+    width: 100%;
+  }
+}

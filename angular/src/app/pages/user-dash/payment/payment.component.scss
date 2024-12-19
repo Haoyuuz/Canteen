@@ -1,0 +1,46 @@
+.btn-container {
+  position: relative;
+  margin-top: 1.5rem;
+}
+
+.btn-container button {
+  width: 85%;
+  height: 5rem;
+  padding: 1rem;
+  font-size: 1.2rem;
+  border-radius: 12px;
+  border: none;
+  background-color: #ffffff;
+  color: rgb(0, 0, 0);
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  border: black 1px solid;
+  display: block;
+  margin: 0 auto;
+}
+
+.btn-container button:hover {
+  background-color: #da062e;
+  border: #da062e 1px solid;
+  color: white;
+  transform: scale(1.05);
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+}
+
+.separator {
+  display: flex;
+  align-items: center;
+  margin: 1rem 0;
+}
+
+.line {
+  flex: 1;
+  height: 1px;
+  background-color: #ccc;
+}
+
+.or-text {
+  margin: 0 0.5rem;
+  font-weight: bold;
+  color: #666;
+}

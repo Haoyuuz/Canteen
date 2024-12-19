@@ -1,0 +1,125 @@
+<mat-card class="cardWithShadow">
+  <mat-card-content class="matcardcons">
+    <ng-container *ngIf="data.length > 0; else noData">
+      <div class="card-parent">
+        <div *ngFor="let item of data; let i = index">
+          <div class="queue-card">
+            <div class="card-body">
+              <div class="card-header">
+                <div class="header-status">
+                  <p>{{ item.paymentMethod }}</p>
+                  <p
+                    [ngClass]="{
+                      'bg-success': item.status == 1,
+                      'bg-error': item.status == 2,
+                      'bg-warning': item.status == 0
+                    }"
+                  >
+                    {{ statusString(item.status ?? 0) }}
+                  </p>
+                </div>
+                <mat-card-title class="bod3">
+                  Order {{ i + 1 }}
+                </mat-card-title>
+                <mat-card-subtitle class="mat-body-2">
+                  {{ item.userName }}
+                </mat-card-subtitle>
+                <mat-card-subtitle class="mat-body-1">
+                  {{ item.orderNum }}
+                </mat-card-subtitle>
+
+                <mat-card-subtitle class="mat-body-2">
+                  <!-- Processing of orders occurs in the following sequence -->
+                  <br /><small>Order Date: {{ item.orderDate }}</small>
+                </mat-card-subtitle>
+              </div>
+              <div class="card-content">
+                <div *ngFor="let itemlog of item.userLogs">
+                  <div class="timeline m-t-24">
+                    <div class="timeline-item d-flex">
+                      <div class="time text-right mat-subtitle-1 f-s-14">
+                        {{ itemlog.creationTime }}
+                      </div>
+                      <div class="point d-flex align-items-center">
+                        <span
+                          class="timeline-badge m-y-8"
+                          [ngClass]="getBadgeClass(itemlog.status ?? 0)"
+                        ></span>
+                        <!-- [ngClass]="getBadgeClass(itemlog.logsDescription)" -->
+                        <span class="timline-border d-block"></span>
+                      </div>
+                      <div class="desc1">
+                        <span class="mat-subtitle-1 f-s-14 desc">{{
+                          itemlog.logsDescription
+                        }}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <style></style>
+
+            <div class="card-footer">
+              <p class="mat-body-2">
+                Prepared by: <strong>{{ item.staffName || "" }}</strong>
+              </p>
+
+              <div class="status-container">
+                <button mat-icon-button (click)="viewOrderDetails(item)">
+                  <mat-icon>edit</mat-icon>
+                </button>
+                <button mat-icon-button (click)="viewOrderItemDetails(item)">
+                  <mat-icon>visibility</mat-icon>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </mat-card-content>
+</mat-card>
+
+<p-dialog
+  header="Order Basket"
+  [(visible)]="visible1"
+  [modal]="true"
+  [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
+  [style]="{ width: '25vw' }"
+  [draggable]="false"
+  [resizable]="false"
+  [appendTo]="'body'"
+>
+  <h4>Items</h4>
+  <div *ngIf="selectedOrder" class="order-detail">
+    <ul>
+      <li *ngFor="let orderItem of selectedOrder.items">
+        <strong>{{ orderItem.itemName }}</strong>
+        <span>₱ {{ orderItem.price }} x {{ orderItem.quantity }}</span>
+      </li>
+    </ul>
+    <div class="d-flex justify-content-end">
+      <span class="total-price"
+        >Total Price: ₱{{ selectedOrder.totalAmount }}
+      </span>
+    </div>
+  </div>
+</p-dialog>
+
+<!-- IF THERE IS NO ORDER TODAY -->
+<ng-template #noData>
+  <div class="no-data-card">
+    <div class="container text-center">
+      <img
+        src="..\assets\images\nodataImg\undraw_no_data_qbuo.svg"
+        alt="No order today"
+        style="width: 150px; height: 150px; margin-bottom: 20px"
+      />
+      <h3 class="m-t-24">There is no order today.</h3>
+      <p class="m-t-8">Please check again later.</p>
+    </div>
+  </div>
+</ng-template>
+
+<app-admin-order-details></app-admin-order-details>

@@ -1,0 +1,98 @@
+<mat-card-content>
+  <div class="search-mcons">
+    <div class="search-cons">
+      <input
+        type="text"
+        class="search-input"
+        [(ngModel)]="searchCategory"
+        placeholder="Search"
+      />
+      <button
+        mat-raised-button
+        color="primary"
+        class="search-button"
+        (click)="onSearchCategory()"
+      >
+        Search
+      </button>
+    </div>
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="onAddProductCategory('', '')"
+    >
+      Add Category
+    </button>
+  </div>
+
+  <br />
+  <mat-card-title>Product Category List</mat-card-title>
+
+  <div class="table-responsive">
+    <table mat-table [dataSource]="dataSource" class="w-100">
+      <!-- Category Name Column -->
+      <ng-container matColumnDef="Category Name">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          class="f-w-400 mat-subtitle-1 f-s-14"
+        >
+          Category Name
+        </th>
+        <td mat-cell *matCellDef="let element" class="mat-body-1">
+          <span class="f-w-600 f-s-14">{{ element.categoryName }}</span>
+        </td>
+      </ng-container>
+
+      <!-- Action Column -->
+      <ng-container matColumnDef="Action">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          class="f-w-400 mat-subtitle-1 f-s-14"
+        >
+          Action
+        </th>
+        <td mat-cell *matCellDef="let element">
+          <span
+            class="bg-light-{{ element.progress }} text-{{
+              element.progress
+            }} rounded-sm f-w-600 p-6 p-y-4 f-s-12"
+          >
+            <button
+              mat-raised-button
+              color="primary"
+              class="m-r-8"
+              (click)="onAddProductCategory(element.id, element.categoryName)"
+            >
+              Update
+            </button>
+            <button
+              mat-raised-button
+              color="warn"
+              class="m-r-8"
+              (click)="onDeleteProductCategory()"
+            >
+              Delete
+            </button>
+          </span>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+
+    <!-- Paginator below the table -->
+    <mat-paginator
+      [length]="totalRecords"
+      [pageSize]="pageSize"
+      [pageSizeOptions]="[5, 10, 25, 50]"
+      (page)="onPageChange($event)"
+    >
+    </mat-paginator>
+  </div>
+</mat-card-content>
+
+<app-toastr-serv></app-toastr-serv>
+<app-add-update-productcat-modal></app-add-update-productcat-modal>

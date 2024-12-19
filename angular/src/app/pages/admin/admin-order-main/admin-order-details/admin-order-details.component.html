@@ -1,0 +1,101 @@
+<p-dialog
+  header="Order Details"
+  [(visible)]="visible"
+  [modal]="true"
+  [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
+  [style]="{ width: '25vw' }"
+  [draggable]="false"
+  [resizable]="false"
+  [appendTo]="'body'"
+  (onHide)="onReset()"
+>
+  <ng-container *ngIf="selectedOrderDetails">
+    <div class="detail-container">
+      <label>Payment: </label>
+      <p class="payment-input">{{ selectedOrderDetails.paymentMethod }}</p>
+      <div class="container-header">
+        <label>Total Price: {{ selectedOrderDetails.totalAmount }}</label>
+        <label>Change: {{ userChange }}</label>
+      </div>
+
+      <div class="detail-container-item">
+        <ng-container
+          *ngIf="selectedOrderDetails.paymentMethod !== 'SalaryDeduction'"
+        >
+          <p class="pcons">Amount Paid:</p>
+          <input
+            type="text"
+            style="width: 100%"
+            [(ngModel)]="selectedOrderDetails.amountPaid"
+            class="payment-input"
+            placeholder="Enter Amount"
+            style="flex-grow: 1"
+          />
+
+          <button
+            class="save-button1"
+            mat-raised-button
+            color="primary"
+            (click)="onSaveDetailsUpdate(selectedOrderDetails, 1, 0)"
+          >
+            Save
+          </button>
+        </ng-container>
+      </div>
+
+      <div class="detail-container-item">
+        <p class="pcons">Order Status:</p>
+        <select
+          class="dropdownStat"
+          [(ngModel)]="selectedOrderDetails.status"
+          [style]="{ flex: '1' }"
+          name="status"
+          id="status"
+          aria-label="Default select example"
+          required
+        >
+          <option hidden>SELECT OPTION</option>
+          <option selected="selected" disabled="disabled">
+            -- Select Order Status --
+          </option>
+          <option value="0">In Progress</option>
+          <option value="1">Done</option>
+          <option value="2">Cancelled</option>
+        </select>
+        <button
+          mat-raised-button
+          class="save-button1"
+          color="primary"
+          (click)="onSaveDetailsUpdate(selectedOrderDetails, 2, 0)"
+        >
+          Save
+        </button>
+      </div>
+      <div class="detail-container-footer">
+        <ng-container *ngIf="getLatestLogs === 1">
+          <button
+            mat-raised-button
+            class="search-button1"
+            color="primary"
+            (click)="onSaveDetailsUpdate(selectedOrderDetails, 3, 2)"
+          >
+            Prepare the food
+          </button>
+        </ng-container>
+
+        <ng-container *ngIf="getLatestLogs === 2">
+          <button
+            mat-raised-button
+            class="search-button1"
+            color="primary"
+            (click)="onSaveDetailsUpdate(selectedOrderDetails, 3, 3)"
+          >
+            Food is ready for pickup
+          </button>
+        </ng-container>
+      </div>
+    </div>
+  </ng-container>
+</p-dialog>
+
+<app-toastr-serv></app-toastr-serv>

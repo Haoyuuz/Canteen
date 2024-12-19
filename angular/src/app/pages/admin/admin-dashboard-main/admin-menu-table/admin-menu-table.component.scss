@@ -1,0 +1,47 @@
+.wb {
+  word-break: break-all;
+}
+.div1 {
+  display: flex;
+  flex-direction: row-reverse;
+}
+.add-button {
+  background-color: #e03e2d;
+  border-radius: 5px;
+  width: 100px;
+  height: 40px;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+  color: white;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+  border: 1px solid #d5331e;
+  margin: 10px;
+}
+
+.add-button:hover {
+  background-color: #d5331e;
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+::ng-deep .glow-on-hover {
+  display: inline-block;
+  cursor: pointer;
+  transition: box-shadow 0.3s ease-in-out;
+}
+
+::ng-deep .glow-on-hover:hover {
+  animation: glow 0.5s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+  0% {
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.6);
+  }
+  100% {
+    box-shadow: 0 0 15px rgba(255, 255, 255, 1);
+  }
+}

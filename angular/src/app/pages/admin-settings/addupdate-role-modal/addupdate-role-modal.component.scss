@@ -1,0 +1,22 @@
+.addbut-cons {
+  display: flex;
+  justify-content: end;
+  margin-top: 20px;
+}
+.ra {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  margin-top: 20px;
+  text-align: center;
+  align-items: center;
+}
+.rw {
+  width: 50px;
+  //   border: 1px solid red;
+}
+.dropdownStat {
+  width: 100%;
+  border-radius: 6px;
+  height: 39px;
+}

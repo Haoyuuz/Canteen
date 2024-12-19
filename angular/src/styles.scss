@@ -1,0 +1,27 @@
+@import "primeng/resources/themes/lara-light-blue/theme.css";
+@import "primeng/resources/primeng.css";
+
+@import "ngx-toastr/toastr";
+
+/* You can add global styles to this file, and also import other style files */
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+/* Ensure dropdown has a high z-index */
+.mat-select-panel {
+  position: absolute !important;
+  z-index: 9999 !important;
+}
+
+/* Ensure dialog has a lower z-index */
+.ui-dialog {
+  z-index: 1000 !important;
+  overflow: visible !important;
+}

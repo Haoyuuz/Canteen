@@ -1,0 +1,53 @@
+.payment-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.payment-input {
+  height: 2.5rem;
+  border-radius: 6px;
+  width: 50%;
+}
+.detail-container {
+  display: flex;
+  flex-direction: column;
+}
+.detail-container-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+// .detail-container-item p-dropdown {
+//   flex: 1;
+// }
+
+.pcons {
+  width: 100px;
+}
+.save-button1 {
+  margin-left: 10px;
+}
+
+.detail-container-footer {
+  display: flex;
+  justify-content: end;
+  margin-top: 20px;
+}
+.detail-container label {
+  font-size: medium;
+  font-weight: 600;
+}
+.container-header {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  margin-bottom: 22px;
+}
+
+.dropdownStat {
+  width: 100%;
+  border-radius: 6px;
+  height: 39px;
+}

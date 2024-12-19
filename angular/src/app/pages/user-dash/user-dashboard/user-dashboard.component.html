@@ -1,0 +1,311 @@
+<app-bestseller-carousel></app-bestseller-carousel>
+
+<mat-card class="cardWithShadow m-t-24">
+  <mat-card-content>
+    <div class="d-flex align-items-center justify-content-between m-b-24">
+      <mat-form-field class="w-50" appearance="outline">
+        <mat-select
+          placeholder="Category"
+          (selectionChange)="onCategoryChange($event.value)"
+        >
+          <mat-option [value]="''">All</mat-option>
+          <mat-option *ngFor="let option of menuCat" [value]="option.id">
+            {{ option.categoryName }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <div class="d-flex align-items-center">
+        <button
+          mat-stroked-button
+          color="primary"
+          class="d-flex align-items-center"
+          (click)="showDialog()"
+        >
+          <i-tabler name="shopping-cart" class="icon-14 m-r-4"></i-tabler>
+          View Cart
+        </button>
+      </div>
+    </div>
+
+    <mat-card-title>Food Menu</mat-card-title>
+
+    <div class="row justify-content-center">
+      <!-- Loop through paginatedCards -->
+      <ng-container *ngFor="let item of data; let i = index">
+        <ng-container
+          *ngIf="
+            i >= (currentPage - 1) * itemsPerPage &&
+            i < currentPage * itemsPerPage
+          "
+        >
+          <div class="col-lg-4">
+            <mat-card
+              class="cardWithShadow position-relative overflow-hidden"
+              [style.filter]="item.stockQuantity === 0 ? 'grayscale(1)' : ''"
+            >
+              <div class="position-relative">
+                <div class="img-cons">
+                  <img
+                    mat-card-image
+                    [src]="item.imgUrl"
+                    alt="Food Image"
+                    class="w-100 imgi"
+                  />
+                </div>
+              </div>
+
+              <mat-card-content class="p-y-24">
+                <div class="user-category">
+                  <br />
+                  <br />
+                  <span
+                    class="f-s-12 m-y-16 f-w-600 p-x-8 p-y-4 bg-light rounded-pill"
+                  >
+                    {{ item.categoryName }}
+                  </span>
+                </div>
+                <h4 class="m-t-16 m-b-8">{{ item.itemName }}</h4>
+                <p
+                  class="m-t-20 f-s-16 text-muted"
+                  style="height: 100px; overflow-y: auto"
+                >
+                  {{ item.itemDesc }}
+                </p>
+                <div
+                  class="d-flex align-items-center justify-content-center m-t-24"
+                >
+                  <div class="d-flex align-items-center">
+                    <span class="m-r-12 f-s-14 d-flex align-items-center">
+                      <i-tabler
+                        name="point"
+                        class="icon-14 m-r-4 d-flex"
+                      ></i-tabler>
+                      ₱{{ item.price }}
+                    </span>
+                  </div>
+
+                  <button
+                    class="btn buy-button m-l-auto f-s-14 d-flex align-items-center rounded-circle border border-danger"
+                    style="width: 40px; height: 40px"
+                    [disabled]="item.stockQuantity === 0"
+                    (click)="openRightSideBar(item.id)"
+                  >
+                    <i-tabler
+                      name="plus"
+                      class="text-danger icon-14"
+                      style="transform: scale(1.8)"
+                    ></i-tabler>
+                  </button>
+                </div>
+              </mat-card-content>
+              <div *ngIf="item.stockQuantity === 0" class="not-available">
+                <span class="f-s-24 f-w-600 text-white">Not Available</span>
+              </div>
+            </mat-card>
+          </div>
+        </ng-container>
+      </ng-container>
+    </div>
+
+    <div class="pagination-controls d-flex justify-content-center m-t-24">
+      <button
+        mat-button
+        (click)="changePage(currentPage - 1)"
+        [disabled]="currentPage === 1"
+      >
+        Previous
+      </button>
+
+      <span class="m-x-12">Page {{ currentPage }} of {{ totalMenuPages }}</span>
+
+      <button
+        mat-button
+        (click)="changePage(currentPage + 1)"
+        [disabled]="currentPage === totalMenuPages"
+      >
+        Next
+      </button>
+    </div>
+  </mat-card-content>
+</mat-card>
+
+<footer class="text-center p-y-16">
+  <span>&copy; 2022 Created by Brigada Group of Companies Inc</span>
+  <br />
+  <a
+    href="https://github.com/blaisepascalmercad0"
+    target="_blank"
+    class="m-r-8"
+  >
+    <i-tabler name="brand-github" class="icon-20"></i-tabler>
+  </a>
+  <a
+    href="https://www.linkedin.com/in/blaisepascalmercad0/"
+    target="_blank"
+    class="m-r-8"
+  >
+    <i-tabler name="brand-linkedin" class="icon-20"></i-tabler>
+  </a>
+  <a href="mailto:blaisepascalmercad0@gmail.com" target="_blank">
+    <i-tabler name="mail" class="icon-20"></i-tabler>
+  </a>
+</footer>
+
+<p-dialog
+  header="Basket"
+  [(visible)]="visible"
+  [modal]="true"
+  [styleClass]="'customdialog'"
+  [center]="true"
+  [appendTo]="'body'"
+  [draggable]="false"
+  [resizable]="false"
+  [style]="{ 'z-index': '10000', 'pointer-events': 'auto' }"
+  [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
+>
+  <ng-container *ngIf="cartData.items.length > 0; else noItemsTemplate">
+    <div class="table-container">
+      <div class="table-header">
+        <ul>
+          <li></li>
+          <li>Food</li>
+          <li>Price</li>
+          <li>Quantity</li>
+        </ul>
+      </div>
+
+      <ng-container *ngFor="let item of cartData.items">
+        <ul>
+          <li>
+            <img
+              [src]="item.imageUrl"
+              width="100"
+              class="img-fluid rounded d-block m-x-auto"
+            />
+          </li>
+          <li>
+            <span class="mini-title">Food: </span><span>{{ item.name }}</span>
+          </li>
+          <li>
+            <span class="mini-title">Price: </span
+            ><span>₱ {{ item.price }}</span>
+          </li>
+          <li>
+            <span class="mini-title">Quantity: </span>
+
+            <div class="d-flex align-items-center">
+              <button
+                class="btn qty-btn d-flex align-items-center justify-content-center icon-button"
+                (click)="changeQuantity(item, -1)"
+              >
+                -
+              </button>
+              <span class="m-x-8">{{ item.quantity }}</span>
+              <button
+                class="btn qty-btn d-flex align-items-center justify-content-center icon-button"
+                (click)="changeQuantity(item, 1)"
+              >
+                +
+              </button>
+            </div>
+          </li>
+        </ul>
+      </ng-container>
+
+      <div class="text-right">
+        <span class="f-s-18 f-w-600"
+          >Total: ₱ {{ getCartItems().totalPrice }}</span
+        >
+      </div>
+    </div>
+    <a class="btnaa" (click)="onPayment()">Proceed to Payment</a>
+  </ng-container>
+  <!-- IF NO ITEM IN THE VIEW CART -->
+  <ng-template #noItemsTemplate>
+    <style>
+      .no-items-card {
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        background-color: #f0f0f0; /* Grayish background color */
+      }
+    </style>
+    <div class="no-items-card">
+      <div class="container text-center">
+        <h3 class="m-t-24">No items in the cart.</h3>
+      </div>
+    </div>
+  </ng-template>
+</p-dialog>
+
+<!-- ITEM SIDE BAR DIALOG -->
+<p-sidebar [(visible)]="sidebarVisible2" position="right" [appendTo]="'body'">
+  <h3>Item Sidebar</h3>
+
+  <mat-card>
+    <mat-card-content>
+      <ng-container *ngIf="dataMenuItem">
+        <div class="position-relative">
+          <img
+            mat-card-image
+            src="{{ dataMenuItem.imgUrl }}"
+            alt="Food Image"
+            width="250"
+            height="auto"
+            class="w-100 rounded-16"
+          />
+        </div>
+
+        <h4 class="m-t-16 m-b-8">{{ dataMenuItem.itemName }}</h4>
+
+        <p class="m-t-20 f-s-16 text-muted scrollable-content">
+          {{ dataMenuItem.itemDesc }}
+        </p>
+
+        <div class="d-flex align-items-center justify-content-between m-t-24">
+          <div class="d-flex align-items-center">
+            <span class="m-r-12 f-s-14 d-flex align-items-center">
+              <i-tabler name="point" class="icon-14 m-r-4"></i-tabler>
+              ₱{{ dataMenuItem.price }}
+            </span>
+          </div>
+          <style></style>
+          <div class="d-flex align-items-center">
+            <button
+              class="btn qty-btn d-flex align-items-center justify-content-center"
+              style="width: 32px; height: 32px"
+              (click)="decreaseQty()"
+            >
+              <i-tabler name="minus" class="icon-14"></i-tabler>
+            </button>
+            <span class="m-x-8"> {{ foodQty }} </span>
+            <button
+              class="btn qty-btn d-flex align-items-center justify-content-center"
+              style="width: 32px; height: 32px"
+              (click)="increaseQty()"
+            >
+              <i-tabler name="plus" class="icon-14"></i-tabler>
+            </button>
+          </div>
+        </div>
+      </ng-container>
+
+      <div class="d-flex justify-content-end">
+        <button
+          class="btn buy-button m-t-16 f-s-14 d-flex align-items-center"
+          (click)="addToCart()"
+        >
+          <i-tabler name="shopping-cart" class="icon-14 m-r-4"></i-tabler>
+          Add to Cart
+        </button>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</p-sidebar>
+
+<app-payment></app-payment>
+<app-toastr-serv></app-toastr-serv>

@@ -1,0 +1,53 @@
+<p-dialog
+  header="PAYMENTS"
+  [(visible)]="visible"
+  [modal]="true"
+  [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
+  [style]="{ width: '50vw' }"
+  [draggable]="false"
+  [resizable]="false"
+  [appendTo]="'body'"
+>
+  <div class="btn-container d-flex flex-column">
+    <button class="m-b-16" (click)="showDialog2()">
+      SALARY DEDUCTION (SD)
+    </button>
+    <div class="separator">
+      <div class="line"></div>
+      <div class="or-text">OR</div>
+      <div class="line"></div>
+    </div>
+    <button class="m-b-16" (click)="showDialog3()">PAY AT THE COUNTER</button>
+    <!-- <div class="separator">
+      <div class="line"></div>
+      <div class="or-text">OR</div>
+      <div class="line"></div>
+    </div>
+    <button (click)="showDialog1()">GCASH</button> -->
+  </div>
+</p-dialog>
+
+<!-- GCASH -->
+<p-dialog
+  header="PAYMENTS"
+  [(visible)]="visible1"
+  [modal]="true"
+  [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
+  [style]="{ width: '50vw' }"
+  [draggable]="false"
+  [resizable]="false"
+  [appendTo]="'body'"
+>
+  <div class="img-container">
+    <div style="display: flex; justify-content: center">
+      <img
+        src="./assets/images/blog/GcashBlaise.jfif"
+        alt="GCASH"
+        class="img-fluid"
+        style="max-width: 400px"
+      />
+    </div>
+  </div>
+</p-dialog>
+
+<app-toastr-serv></app-toastr-serv>
