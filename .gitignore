@@ -483,8 +483,8 @@ $RECYCLE.BIN/
 # Vim temporary swap files
 *.swp
 
+#ANGULAR
 
-#Angular
 # Node.js dependencies
 /node_modules/
 
@@ -532,4 +532,6 @@ yarn-error.log*
 # OS files
 *.swp
 
+# Ignore appsettings.json file
+appsettings.json
 
